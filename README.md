@@ -1,6 +1,20 @@
 # Spring with auth
 Include role, permission management.
 
+```bash
+JWT_SECRET_KEY="your-key"
+```
+
+### Build jar file
+```bash
+mvn clean package
+```
+
+### Run with env variables
+```bash
+java -jar target/your-jar.jar --JWT_SECRET_KEY="your-key"
+```
+
 # Getting Started
 
 ### Reference Documentation
