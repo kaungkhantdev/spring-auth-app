@@ -23,7 +23,9 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(exclude = "password")
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

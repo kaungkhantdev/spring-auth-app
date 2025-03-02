@@ -1,5 +1,6 @@
 package com.auth.app.controller;
 
+import com.auth.app.dto.response.UserResponse;
 import com.auth.app.model.User;
 import com.auth.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,15 @@ public class UserController {
 
     // Accessible to any authenticated user
     @GetMapping("/me")
-    public ResponseEntity<User> getCurrentUser(@RequestParam String username) {
-        return ResponseEntity.ok(userService.getUserByUsername(username));
+    public ResponseEntity<String> getCurrentUser(@RequestParam String username) {
+        User user = userService.getUserByUsername(username);
+        return ResponseEntity.ok(user.getEmail());
     }
 
     // Accessible only to ADMIN or SUPER_ADMIN roles
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 }
