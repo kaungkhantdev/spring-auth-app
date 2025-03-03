@@ -6,6 +6,7 @@ import com.auth.app.model.Permission;
 import com.auth.app.repository.UserRepository;
 import com.auth.app.repository.RoleRepository;
 import com.auth.app.repository.PermissionRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +21,14 @@ public class DataSeeder {
     public CommandLineRunner seedDatabase(UserRepository userRepo,
                                           RoleRepository roleRepo,
                                           PermissionRepository permissionRepo,
-                                          PasswordEncoder passwordEncoder) {
+                                          PasswordEncoder passwordEncoder,
+                                          @Value("${seed.data.enabled:false}") boolean seedDataEnabled) {
         return args -> {
+            if (!seedDataEnabled) {
+                System.out.println("⚠️ Data seeding is disabled. Skipping...");
+                return;
+            }
+
             // Seed Permissions
             String[] permissions = {"PERMISSION_READ", "PERMISSION_WRITE", "PERMISSION_DELETE"};
             for (String permissionName : permissions) {
