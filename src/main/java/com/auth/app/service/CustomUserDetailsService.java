@@ -1,4 +1,4 @@
-package com.auth.app.security;
+package com.auth.app.service;
 
 import com.auth.app.model.User;
 import com.auth.app.repository.UserRepository;
