@@ -1,13 +1,15 @@
 package com.auth.app.controller;
 
+import com.auth.app.dto.response.AuthResponse;
+import com.auth.app.dto.response.UserResponse;
 import com.auth.app.security.JwtTokenProvider;
-import com.auth.app.dto.AuthRequest;
-import com.auth.app.dto.AuthResponse;
-import com.auth.app.dto.UserDTO;
+import com.auth.app.dto.request.AuthRequest;
+import com.auth.app.dto.request.UserRequest;
 import com.auth.app.model.User;
 import com.auth.app.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -39,8 +41,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody UserDTO userDTO) {
-        User user = authService.registerUser(userDTO);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequest userDTO) {
+        try {
+            User user = authService.registerUser(userDTO);
+            return new ResponseEntity<>("Created", HttpStatus.CREATED); // 201 Created
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);  // 400 Bad Request for duplicate email
+        }
     }
 }
