@@ -1,4 +1,4 @@
-package com.auth.app.dto;
+package com.auth.app.dto.request;
 
 public class AuthRequest {
     private String username;

@@ -1,5 +1,6 @@
 package com.auth.app.security;
 
+import com.auth.app.service.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;

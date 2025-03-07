@@ -1,4 +1,4 @@
-package com.auth.app.dto;
+package com.auth.app.dto.response;
 
 public class AuthResponse {
     private String token;
